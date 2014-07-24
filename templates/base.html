@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrapp -->
+    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'talk/css/talk.css' %}" rel="stylesheet">
+    {% block linking %}{% endblock %}
+    <title>{% block title %}ctfBulletin{% endblock %}</title>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="/challenge/">ctfBulletin</a>
+        <div class="nav-collapse collapse">
+    <ul class="nav pull-right">
+
+            {% if user.is_authenticated %}
+                <li class="navbar-link"><a href="#">{{ user.username }}</a></li> <!-- link to the profile -->
+            {% else %}
+            {% endif %}
+    </ul>
+    <ul class="nav" >
+        <li><a href="/admin">Administration</a></li>
+    </ul>
+       </div>
+   </div>
+</div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav ">
+            {% include 'side_nav_bar.html' %}
+                {% block list %}
+                {% endblock %}
+            </div>
+            <!--/.well -->
+        </div>
+        <!--/span-->
+        <div class="span9" style="background-color:#e5e5e5; border-radius: 5px">
+            {% block body %}
+            {% endblock %}
+        </div>
+        <!--/span-->
+    </div>
+    <!--/row-->
+</div>
+<!--/.fluid-container-->
+
+<hr>
+    <footer style="position: relative">
+    <div class="container">
+        <p>&copy; 2014 ctfBullentin : all right reserved for <a href="http://www.fb.com/sayf.e.farhani">Sayf piratos</a></p>
+    </div>
+</footer>
+    <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.columnizer.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

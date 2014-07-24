@@ -1,0 +1,25 @@
+.title_read {
+    padding-top: 25px;
+    height: 200px;
+}
+#content {
+    padding: 20px 50px 10px 10px;
+    display: block;
+}
+.infos {
+    float: right;
+    width: 300px;
+    height: 150px;
+    background-color: #003399;
+}
+.myspan7 {
+    padding-left: 10px;
+    background-color: rgb(230, 230, 230);
+    height: 150px;
+    border: 3px solid rgb(185, 183, 183);
+    border-radius: 10px;
+    float: left;
+}
+.column div {
+    padding:3px;
+}

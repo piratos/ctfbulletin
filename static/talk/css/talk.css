@@ -1,0 +1,54 @@
+.header-actions {
+font-size: 22px;
+color: #ece5e5;
+ }
+
+ .mypopover-title {
+padding: 8px 14px;
+margin: 0;
+font-size: 25px;
+font-weight: normal;
+line-height: 18px;
+background-color: #f7f7f7;
+border-bottom: 2px solid #000000;
+-webkit-border-radius: 5px 5px 0 0;
+-moz-border-radius: 5px 5px 0 0;
+border-radius: 5px 5px 0 0;
+ }
+ .reply {
+     background-color: #ffffff;
+     border-radius: 6px;
+     position: relative;
+     width: 780px;
+     left: 110px;
+ }
+ .reply_text {
+    text-align: left;
+    position: relative;
+    padding-left: 120px;
+     font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+ }
+ .profile_pic {
+     float: left;
+     height: 80px;
+     width: 80px;
+     background-color: black;
+     border: 7px solid white;
+     border-radius: 10px;
+ }
+ .span_reply {
+     position: relative;
+ }
+ #reply_content {
+     right: 80px;
+     position: relative;
+ }
+ .question {
+     background-color: #d4d4d4;
+     width: 500px;
+     height: 200px;
+ }
+ .clean {
+     font: monospace, monospace;
+     font-size: 12pt;
+ }

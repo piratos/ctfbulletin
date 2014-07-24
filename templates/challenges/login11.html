@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+<head>
+    <title>Login</title>
+</head>
+<body>
+{% block body %}
+    <h3 class="header-actions">login form :</h3>
+    <form action="" method="post">
+    {% csrf_token %}
+        <label>username :</label>
+            <input type="text" name="username">
+        <label>password :</label>
+            <input type="password" name="password"><br>
+        <input type="submit" class="btn btn-success" value="Login">
+    </form>
+{% endblock %}
+</body>
+</html>

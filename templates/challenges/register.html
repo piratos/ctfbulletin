@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+
+<head>
+    <title>Registration</title>
+</head>
+<body>
+{% block body %}
+    <div id="myform">
+    {% if regitered %}
+        <p class="text-success text-center">you have registered successfully !</p>
+        <script type="application/javascript">
+        $(document).ready(function(){
+            setTimeout(function(){ window.location = '/talk/index/';}, 5000);
+        });
+        </script>
+    {% else %}
+  <form action="/challenges/register/" id="register_form" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+    {{ user_form.as_ul }}
+    {{ challenger_form.as_ul }}
+  <input type="submit" class="btn btn-success" value="Register">
+  </form>
+    {% endif %}
+    </div>
+{% endblock %}
+</body>
+</html>

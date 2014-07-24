@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>Connection</title>
+    {% block linking %}
+        <style>
+        .helptext {
+            color: red;
+        }
+        </style>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+<div class="" id="loginModal">
+	<div class="modal-header">
+		<h3>Have an Account?</h3>
+	</div>
+	<div class="modal-body" style="max-height: 900px">
+		<div class="well">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+				<li id="to_create" ><a href="#create" data-toggle="tab" >Create Account</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane active in" id="login">
+					<form class="form-horizontal" action='/challenges/login/' method="POST" >
+                        {% csrf_token %}
+						<fieldset>
+							<div id="legend">
+								<legend class="">Login</legend>
+							</div>
+							<div class="control-group">
+								<!-- Username -->
+								<label class="control-label"  for="username">Username</label>
+								<div class="controls">
+									<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<!-- Password-->
+								<label class="control-label" for="password">Password</label>
+								<div class="controls">
+									<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+								</div>
+							</div>
+
+
+							<div class="control-group">
+								<!-- Button -->
+								<div class="controls">
+									<button class="btn btn-success">Login</button>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="create1">
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'challenges/js/challenges.js' %}"></script>
+{% endblock %}
+</body>
+</html>

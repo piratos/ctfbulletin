@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load blog_filters %}
+<head>
+    <title>ctfBlog</title>
+</head>
+<body>
+{% block body %}
+    <ul style="list-style-type: None">
+    {% if articles %}
+    {% for article in articles %}
+        <li><h3>> {{ article.title }}</h3></li>
+        <ul style="list-style-type: None">
+            <li><h5 style="color: #942a25">author : {{ article.author.username }}</h5></li>
+            <li style="font-family: Verdana, 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif">{{ article.content|truncatechars:300 }}</li>
+            <a href="/blog/read/{{ article.title|url_it }}/"><button class="btn btn-danger">read complete article</button></a>
+            <li class="text-info" style="float: right">{{ article.date_post }}</li>
+            <hr>
+        </ul>
+    {% endfor %}
+    {% else %}
+        <h2 class="text-error">no articles found !</h2>
+    {% endif %}
+    </ul>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>{% block title %}{{ blog.title }}{% endblock %}</title>
+    {% block linking %}
+        <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet" >
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div class="span12 title_read"  id="title_read">
+        <div class="myspan7">
+            <h2 style="text-align: center;padding-right: 300px;">{{ blog.title }}</h2><br>
+            <ul style="list-style-type: None">
+                <li class="text-info">written by {{ blog.author }}</li>
+                <li class="text-info">on {{ blog.date_post }}</li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        <p style="font-family: monospace">{{ blog.content }}</p>
+    </div>
+    <hr>
+    <div id="comment">
+                {% for message in messages %}
+                  <div id="reply">
+                    <div class="profile_pic"><img src="{% static 'img/avatar.png' %}"></div>
+                    <div class="reply">
+                        <div id="reply_content">
+                        <li style="color: darkblue"><strong>{{ message.commenter }} :</strong></li>
+                        <div class="text-left text reply_text">{{ message.comment }}</div><br>
+                        <p class="text-info text-right">{{ message.date_comment }}</p>
+                        </div>
+                    </div>
+                  </div>
+                    <hr>
+                {% endfor %}
+        <form action="comment/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="article" value="{{ blog.title }}" >
+            <label>comment : </label><textarea style="width: 400px;height: 100px;"  name="content"></textarea><br>
+            <input class="btn btn-success" type="submit" name="submit" value="comment">
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'blog/js/blog.js' %}"></script>
+{% endblock %}
+</body>
+</html>

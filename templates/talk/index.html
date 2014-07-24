@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>categories</title>
+</head>
+<body>
+{% block body %}
+    <h2 class=" mypopover-title text-success">challenges type</h2>
+    <hr style="color: darkgreen">
+    <ul class="nav-list nav " style="list-style-type: None">
+        {% for category in categories %}
+            <li style="font-size: 17px;"><a href="/talk/category/{{ category.name }}/">{{ category }}</a></li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block scripts %}
+        <script src="{% static 'talk/js/talk.js' %}"></script>
+{% endblock %}
+</body>
+</html>

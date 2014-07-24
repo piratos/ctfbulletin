@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>{{ thread_name }}</title>
+    {% block linking %}
+        <link href="{% static 'talk/css/talk.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+        {% if messages %}
+            <h2 class="text-success text-center" >{{ thread.title }}</h2>
+            <hr>
+                <div>
+                    <p style="font-size: 12pt" class="clean">{{ thread.question }}</p>
+                </div>
+            <hr>
+            <ul c style="list-style-type: None">
+                {% for message in messages %}
+                  <div id="reply">
+                    <div class="profile_pic"><img src="{% static 'img/avatar.png' %}"></div>
+                    <div class="reply">
+                        <div id="reply_content">
+                        <li style="color: darkblue"><strong>{{ message.sender.user.username }} :</strong></li>
+                        <div class="text-left text reply_text">{{ message.content }}</div><br>
+                        <p class="text-info text-right">{{ message.start_date }}</p>
+                        </div>
+                    </div>
+                  </div>
+                    <hr>
+                {% endfor %}
+                <li id="message_added"></li>
+            </ul>
+        {% endif %}
+            <div id="add_message">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <span class="input-medium text-center">{{ message_form.as_p }}</span>
+                    <input class="btn btn-success text-center" type="submit" value="reply">
+                </form>
+            </div>
+{% endblock %}
+</body>
+</html>

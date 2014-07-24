@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+<head>
+    <title>test media</title>
+</head>
+<body>
+{% block body %}
+    {% if media %}
+        <img src="{{ media.pic.url }}" alt="picture">
+    {% endif %}
+    <form action="/talk/add_media/" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form.as_ul }}
+    <input type="submit" class="btn btn-success" value="add media">
+    </form>
+{% endblock %}
+</body>
+</html>

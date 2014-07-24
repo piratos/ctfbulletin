@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+<head>
+    <title>{% block title %}Challenges{% endblock %}</title>
+    {% block linking %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% if list %}
+        {% for ch in list %}
+            <p>category</p>
+            <p>{{ ch.category.name }}</p>
+            <p>challenges</p>
+            {% for challenge in ch.challenges %}
+                <p>{{ challenge.name }}</p>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+    {% endif %}
+{% endblock %}
+</body>
+</html>
