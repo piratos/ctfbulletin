@@ -1,6 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from challenges.forms import *
+import Image
+import os
+from django.conf import settings
 
 
 def register(request):
@@ -17,10 +20,17 @@ def register(request):
             challenger_profile.badge = 'B'
             challenger_profile.point = 0
             if 'picture' in request.FILES:
-                challenger_profile.picture = request.FILES['picture']  # TODO make avatar 80px x 80px from picture
+                challenger_profile.picture = request.FILES['picture']
             if 'cv' in request.FILES:
                 challenger_profile.cv = request.FILES['cv']
             challenger_profile.save()
+            media_dir = settings.MEDIA_ROOT
+            profile_pic_dir = os.path.join(media_dir, 'profile_pics')
+            pic_name = os.path.basename(challenger_profile.picture.url)
+            absolute_url = os.path.join(profile_pic_dir, pic_name)
+            im = Image.open(absolute_url)                                # TODO make avatar more precise in term of size
+            im.thumbnail((80, 80), Image.ANTIALIAS)
+            im.save(absolute_url)
             registered = True  # everything is good ? then save to db
         else:
             print user_form.errors, challenger_form.errors
