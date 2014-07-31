@@ -8,6 +8,7 @@ urlpatterns = patterns('',
                        url(r'^talk/', include('talk.urls')),
                        url(r'^blog/', include('blog.urls')),
                        url(r'challenges/', include('challenges.urls')),
+                       url(r'ctf/', include('ctf.urls')),
                        url(r'^admin/', include(admin.site.urls)),
                        )
 if settings.DEBUG:

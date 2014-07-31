@@ -18,7 +18,8 @@ def register(request):
             challenger_profile = challenger_form.save(commit=False)
             challenger_profile.user = theuser
             challenger_profile.badge = 'B'
-            challenger_profile.point = 0
+            challenger_profile.score = 0
+            challenger_profile.member = ""
             if 'picture' in request.FILES:
                 challenger_profile.picture = request.FILES['picture']
             if 'cv' in request.FILES:
@@ -29,7 +30,7 @@ def register(request):
             pic_name = os.path.basename(challenger_profile.picture.url)
             absolute_url = os.path.join(profile_pic_dir, pic_name)
             im = Image.open(absolute_url)                                # TODO make avatar more precise in term of size
-            im.thumbnail((80, 80), Image.ANTIALIAS)
+            im.thumbnail((80, 80), Image.ANTIALIAS)                      # TODO change picture name avoid conflicts
             im.save(absolute_url)
             registered = True  # everything is good ? then save to db
         else:
@@ -75,5 +76,5 @@ def index(request):
             challenges = Challenge.objects.filter(category=category).order_by('-score')
         except Challenge.DoesNotExist:
             challenges = ()
-        context_list.append({'category':category, 'challenges': challenges})
-    return  render(request, 'challenges/index.html', {'list':context_list})
+        context_list.append({'category': category, 'challenges': challenges})
+    return  render(request, 'challenges/index.html', {'list': context_list})

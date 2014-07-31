@@ -1,17 +1,24 @@
-from django.shortcuts import render, Http404, HttpResponseRedirect
+from django.shortcuts import render, Http404
 from blog.models import *
+from django.contrib.auth.decorators import login_required
 
 
 def user_or_challenger(request):
-    user = request.user
+    user_id = request.user.id
     chexist = False
+    uexist = False
     try:
-        challenger = Challenger.objects.get(user=user)
-        chexist = True
-        user = challenger
-    except Challenger.DoesNotExist:
-        pass
-    return user, chexist
+        user = User.objects.get(id=user_id)
+        uexist = True
+        try:
+            challenger = Challenger.objects.get(user=user)
+            chexist = True
+            user = challenger
+        except Challenger.DoesNotExist:
+            pass
+    except User.DoesNotExist:
+        user = None
+    return user, chexist, uexist
 
 
 def index(request):
@@ -30,15 +37,14 @@ def read(request, blog_url):
     except BlogComment.DoesNotExist:
         pass
         messages = None
-    user, chexist = user_or_challenger(request)
     return render(request, 'blog/read.html', {'blog': blog,
-                                              'exist': chexist,
                                               'messages': messages,
-                                              'user': user})
+                                              })
 
 
+@login_required()
 def add_message(request):
-    user, chexist = user_or_challenger(request)
+    user, chexist, uexist = user_or_challenger(request)
     if 'content' and 'article' in request.POST and chexist:
         comment = request.POST['content']
         article_name = request.POST['article']

@@ -30,9 +30,9 @@ class HiddenTextField(models.TextField):
 
 
 class ChallengerProfile(forms.ModelForm):
-    points = forms.IntegerField(widget=forms.HiddenInput(), initial=0)  # i dont like this ! not secure
-    solved = forms.CharField(widget=forms.HiddenInput(), initial=000)   # the same for this, even with csrf protection
-    badge = HiddenTextField()
+    points = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    member = forms.CharField(widget=forms.HiddenInput(), initial=" ")
+    badge = forms.CharField(widget=forms.HiddenInput(), initial="A")
 
     class Meta:
         model = Challenger

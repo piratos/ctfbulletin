@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
@@ -28,7 +29,7 @@ SECRET_KEY = 'b6&ks5aoq^b$b*uwz_ryc!^f9kgu&#%(po%p)%ef3_)n!u7ppt'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-LOGIN_URL = '/talk/login/'
+LOGIN_URL = '/challenges/login/'
 
 ALLOWED_HOSTS = []
 
@@ -46,7 +47,7 @@ INSTALLED_APPS = (
     'talk',
     'blog',
     'challenges',
-
+    'ctf',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,9 +68,12 @@ WSGI_APPLICATION = 'ctfbulletin.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default': {'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'ctfbulletin',
+                'USER': 'root',
+                'PASSWORD': '',
+                'HOST': '127.0.0.1',
+                'PORT': '',
     }
 }
 

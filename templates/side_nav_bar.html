@@ -1,9 +1,10 @@
 <body>
 {% block list %}
     <ul class="nav nav-list sidebar-nav">
-        <li><a href="#">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/talk/index/">forum</a></li>
         <li><a href="/blog/">Blog</a></li>
+        <li><a href="/ctf/">CTF</a></li>
         <li><a href="#">scoreboard</a></li>
         {% if user.is_authenticated %}
             <li><a href="#">Profile</a></li>

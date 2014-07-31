@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>ctf</title>
+    {% block linking %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <form class="form-vertical" method="post" action="/ctf/add/" >
+    {% csrf_token %}
+    <label>Team </label><input class="input-medium" type="text" name="group"><br>
+    <input class="btn btn-success" type="submit" name="send" value="create team">
+    </form>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

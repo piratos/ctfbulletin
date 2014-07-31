@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>Teams</title>
+    {% block linking %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+  {% if add %}
+    {% if exist or have %}
+        {% if exist %}
+          <div class="alert alert-error">
+            This team exists already ! please choose another name
+          </div>
+         {% else %}
+          <div class="alert alert-error">
+            you already have a team named {{ name }} ! check your dashboard
+          </div>
+         {% endif %}
+    {% else %}
+       <div class="alert alert-success">
+        Team {{ name }} created successflly !
+       </div>
+        <div class="alert alert-info">
+            time to add members ! :
+        </div>
+        <h4>send these keys to each member you wish to add to your team</h4>
+        {% for key in keys %}
+            <div class="alert alert-block"><p>key : {{ key }}</p></div>
+        {% endfor %}
+    {% endif %}
+  {% else %}
+      {% if have %}
+          <div class="alert alert-block alert-error">
+            you already member of a team ! you cannot join another teams
+          </div>
+      {% else %}
+          {% if exist %}
+            {% if key_athentic %}
+                {% if empty %}
+                    <!-- every thing is okay challenger added -->
+                    <div class="alert alert-block alert-success">
+                        you have been added successfuly to the team {{ name }}<br>
+                        consider checking your dashboard before challenge begin
+                    </div>
+                {% else %}
+                    <div class="alert alert-block alert-error">
+                        the key your enter is used ! please contact your team admin to have empty key
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-block alert-error">
+                    the key you entered does not seems valid ! check your key or contact your team admin
+                </div>
+            {% endif %}
+          {% else %}
+              <div class="alert alert-block alert-error">
+                    team you want to enter does not exist ! you can create your own team <a href="#">here</a>
+              </div>
+          {% endif %}
+      {% endif %}
+  {% endif %}
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

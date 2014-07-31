@@ -13,32 +13,25 @@ choices = (
 
 class Challenger(models.Model):
     user = models.OneToOneField(User)
-    badge = models.TextField(choices=choices, default='A')
+    badge = models.CharField(choices=choices, default='A', max_length=128)
     score = models.IntegerField(default=0)
+    member = models.CharField(max_length=128, blank=True, null=True)
     picture = models.ImageField(upload_to='./profile_pics', blank=True)
-    born = models.DateField(blank=True)                                   # dirty hack to store solved challenges for
-    cv = models.FileField(upload_to='./cvs', blank=True)                  # each challenger, solved will store the id's
-    website = models.URLField(blank=True)                                 # of each solved challenge, each id is written
-    solved = models.CharField(max_length=750, default="", null=True)      # in 3 characters, greater solutions are
+    born = models.DateField(blank=True)
+    cv = models.FileField(upload_to='./cvs', blank=True)
+    website = models.URLField(blank=True)
+    solved = models.CommaSeparatedIntegerField(max_length=128, null=True)
 
-                                                                          # appreciated :)
-    def get_solved(self):
-        list_challenges = []
-        list_ids = [int(self.solved[3*i:3+3*i]) for i in range(len(self.solved)/3)]
-        for id1 in list_ids:
-            try:
-                list_challenges.append(Challenge.objects.get(id=id1))
-            except Challenge.DoesNotExist:
-                pass
-        return list_challenges
+    def get_solved_id(self):
+        list_ids = [int(i) for i in self.solved.split(',')]
+        return list_ids
 
     def add_solved(self, challenge1):
         id1 = str(challenge1.id)
-        id1 = '0'*(3-len(id1))+id1
-        self.solved += id1
+        self.solved += ','+id1
 
     def is_solved(self, chal):
-        if chal in self.get_solved():
+        if chal.id in self.get_solved_id():
             return True
         return False
 
