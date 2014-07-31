@@ -33,14 +33,14 @@ class Challenger(models.Model):
     solved = models.CommaSeparatedIntegerField(max_length=128, null=True, blank=True)
 
     def get_solved_id(self):
-        list_ids = [int(i) for i in self.solved.split(',')]
+        list_ids = [int(i) for i in str(self.solved).split(',')]
         return list_ids
 
     def add_solved(self, challenge1):
         id1 = str(challenge1.id)
         self.solved += ','+id1
 
-    def is_solved(self, chal):
+    def did_solved(self, chal):
         if chal.id in self.get_solved_id():
             return True
         return False
@@ -66,13 +66,14 @@ class Challenge(models.Model):
     url = models.URLField()
 
     def __unicode__(self):
-        return self.name + ' from ' + self.category.name
+        return self.name
 
 
 class WriteUp(models.Model):
     author = models.ForeignKey(Challenger)
     challenge = models.ForeignKey(Challenge)
     content = models.TextField()
+    aproved = models.BooleanField(default=False)
     date_writeup = models.DateTimeField(auto_created=True)
 
     def __unicode__(self):

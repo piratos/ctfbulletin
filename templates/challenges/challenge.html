@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>challenge</title>
+    {% block linking %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <h2>{{ challenge.name }} : </h2>
+    <h3>score : {{ challenge.score }}</h3>
+    <h3>hints : {{ challenge.hints }}</h3>
+    <a href="{{ challenge.url }}"><button class="btn btn-warning">Start !</button></a>
+    <hr>
+    <div style="height: 5px" id="result"></div>
+    <hr>
+    {% if solved %}
+        <p class="alert alert-info"> you did already solved the challenge !<br>
+        you can <a href="#">submit</a> your write-up or look for <a href="#">write-ups</a> made by challengers</p>
+
+    <hr>
+    {% else %}
+    <form id="submitFlag" class="form-horizontal" action="" method="post">
+    {% csrf_token %}
+    <label class="">submit the flag</label>
+    <input ch-data="{{ challenge.id }}" id="flag" class="input-medium" type="text" name="flag">
+    <input type="button" id="chk" class="btn btn-info"  value="Submit">
+    </form>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'challenges/js/challenge.js' %}"></script>
+{% endblock %}
+</body>
+</html>

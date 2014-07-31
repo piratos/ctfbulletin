@@ -8,29 +8,16 @@
 </head>
 <body>
 {% block body %}
-    <!-- {% if list %}
+     {% if list %}
         {% for ch in list %}
-            <p>category</p>
-            <p>{{ ch.category.name }}</p>
-            <p>challenges</p>
+            <p><strong>{{ ch.category.name }}</strong></p>
             {% for challenge in ch.challenges %}
-                <p>{{ challenge.name }}</p>
+                <a href="/challenges/get/{{ challenge.id }}/"><p>{{ challenge.name }}</p></a>
             {% endfor %}
         {% endfor %}
     {% else %}
         <h1> no challenges for now, get back soon !</h1>
-    {% endif %} -->
-    <div class="row">
-        <div class="span4" style="background-color: #000000; height: 150px;"></div>
-        <div class="span4" style="background-color: #000000; height: 150px;"></div>
-        <div class="span4" style="background-color: #000000; height: 150px;"></div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="span4" style="background-color: #000000; height: 150px;"></div>
-        <div class="span4" style="background-color: #000000; height: 150px;"></div>
-        <div class="span4" style="background-color: #000000; height: 150px;"></div>
-    </div>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

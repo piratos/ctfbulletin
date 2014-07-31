@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from challenges.forms import *
 import Image
 import os
@@ -77,4 +78,42 @@ def index(request):
         except Challenge.DoesNotExist:
             challenges = ()
         context_list.append({'category': category, 'challenges': challenges})  # TODO grid presentation for challenges
-    return  render(request, 'challenges/index.html', {'list': context_list})
+    return render(request, 'challenges/index.html', {'list': context_list})
+
+
+@login_required()
+def get_challenge(request, ch_id):
+    solved = False
+    try:
+        challenge = Challenge.objects.get(id=ch_id)
+    except Challenge.DoesNotExist:
+        raise Http404
+    challenger = Challenger.objects.get(user=request.user)
+    # solved = challenger.did_solved(challenge)
+    return render(request, 'challenges/challenge.html', {'challenge': challenge,
+                                                         'solved': solved})
+
+
+def check_flag(request):
+    if request.method == 'GET':
+        if 'flag' and 'chid' in request.GET:
+            flag = request.GET['flag']
+            chid = request.GET['chid']
+            try:
+                challenge = Challenge.objects.get(id=chid)
+            except Challenge.DoesNotExist:
+                return HttpResponse('fail')
+            if challenge.flag == flag:
+                challenger = Challenger.objects.get(user=request.user)
+                challenger.score += challenge.score
+                # challenger.add_solved(challenge)
+                return HttpResponse('success')
+    return HttpResponse('fail')
+
+
+@login_required()
+def get_writeup(request, chid):
+    try:
+        challenge = Challenge.objects.get(id=chid)
+    except Challenge.DoesNotExist:
+        raise Http404
