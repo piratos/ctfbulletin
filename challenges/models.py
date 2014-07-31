@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from time import time
+import os
 # Create your models here.
 
 choices = (
@@ -11,16 +13,24 @@ choices = (
 )
 
 
+def upload_renamed(path):
+    def wrapper(instance, filename):
+        ext = filename.split('.')[-1]
+        new_name = str(time()).replace('.', '_') + '.' + ext
+        return os.path.join(path, new_name)
+    return wrapper
+
+
 class Challenger(models.Model):
     user = models.OneToOneField(User)
     badge = models.CharField(choices=choices, default='A', max_length=128)
     score = models.IntegerField(default=0)
     member = models.CharField(max_length=128, blank=True, null=True)
-    picture = models.ImageField(upload_to='./profile_pics', blank=True)
+    picture = models.ImageField(upload_to=upload_renamed('profile_pics'), blank=True)
     born = models.DateField(blank=True)
-    cv = models.FileField(upload_to='./cvs', blank=True)
-    website = models.URLField(blank=True)
-    solved = models.CommaSeparatedIntegerField(max_length=128, null=True)
+    cv = models.FileField(upload_to=upload_renamed('cvs'), blank=True)
+    website = models.URLField(blank=True, null=True)
+    solved = models.CommaSeparatedIntegerField(max_length=128, null=True, blank=True)
 
     def get_solved_id(self):
         list_ids = [int(i) for i in self.solved.split(',')]

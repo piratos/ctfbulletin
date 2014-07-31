@@ -38,6 +38,8 @@ def add_team(request):
             except Team.DoesNotExist:
                 team = Team.create(name=name, user_admin=admin)
                 team.save()
+                admin.member = team.name
+                admin.save()
                 unique_keys = team.get_keys()
         return render(request, 'ctf/team.html', {'exist': exist,
                                                  'keys': unique_keys,
@@ -63,7 +65,6 @@ def join_team(request):
             return render(request, 'ctf/team.html', {'have': have})
         name = request.POST['name']
         key = request.POST['key']
-        order = int(key[10])
         empty = True
         try:
             team = Team.objects.get(name=name)
@@ -71,21 +72,28 @@ def join_team(request):
             keys = team.get_keys()
             key_athentic = True
             if key in keys:  # key is authentic !
+                order = int(key[10])
                 if order == 2:                  # TODO dirty hack , any other solution ?
                     if team.user2 is None:
                         team.user2 = challenger
+                        challenger.member = team.name
+                        challenger.save()
                         team.save()
                     else:
                         empty = False
                 elif order == 3:
                     if team.user3 is None:
                         team.user3 = challenger
+                        challenger.member = team.name
+                        challenger.save()
                         team.save()
                     else:
                         empty = False
                 elif order == 4:
                     if team.user4 is None:
                         team.user4 = challenger
+                        challenger.member = team.name
+                        challenger.save()
                         team.save()
                     else:
                         empty = False

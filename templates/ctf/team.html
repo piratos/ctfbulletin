@@ -43,12 +43,12 @@
                 {% if empty %}
                     <!-- every thing is okay challenger added -->
                     <div class="alert alert-block alert-success">
-                        you have been added successfuly to the team {{ name }}<br>
-                        consider checking your dashboard before challenge begin
+                        you have been added successfuly to the team <strong>{{ name }}</strong><br>
+                        consider checking your dashboard before the challenge begins
                     </div>
                 {% else %}
                     <div class="alert alert-block alert-error">
-                        the key your enter is used ! please contact your team admin to have empty key
+                        the key your enter is used ! please contact your team admin to have an empty key
                     </div>
                 {% endif %}
             {% else %}
@@ -58,7 +58,7 @@
             {% endif %}
           {% else %}
               <div class="alert alert-block alert-error">
-                    team you want to enter does not exist ! you can create your own team <a href="#">here</a>
+                    team you want to enter does not exist ! you can create your own team <a href="/ctf/">here</a>
               </div>
           {% endif %}
       {% endif %}

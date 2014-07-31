@@ -5,15 +5,30 @@
 <head>
     <title>ctf</title>
     {% block linking %}
+        <link href="{% static 'ctf/css/ctf.css' %}" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
 {% block body %}
+  <div id="add_join" class="span7">
+    <div id="add_team">
+    <p class="label label-info">add a team</p>
     <form class="form-vertical" method="post" action="/ctf/add/" >
     {% csrf_token %}
     <label>Team </label><input class="input-medium" type="text" name="group"><br>
     <input class="btn btn-success" type="submit" name="send" value="create team">
     </form>
+    </div>
+    <div id="join_team">
+      <p class="label label-info">join a team</p>
+        <form class="form-vertical" method="post" action="/ctf/join/">
+        {% csrf_token %}
+        <label>Team </label><input name="name" type="text"><br>
+        <label>Key </label><input name="key" type="text"><br>
+        <input class="btn btn-success" type="submit" name="send" value="join team">
+        </form>
+    </div>
+  </div>
 {% endblock %}
 {% block scripts %}
 {% endblock %}
