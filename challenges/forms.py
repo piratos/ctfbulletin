@@ -33,7 +33,11 @@ class ChallengerProfile(forms.ModelForm):
     points = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     member = forms.CharField(widget=forms.HiddenInput(), initial=" ")
     badge = forms.CharField(widget=forms.HiddenInput(), initial="A")
+    born = forms.DateInput()
 
     class Meta:
         model = Challenger
-        fields = ('picture', 'born', 'cv', 'website')
+        fields = ('picture', 'country', 'born', 'cv', 'website')
+        widgets = {
+            'born': forms.DateInput(format='%m/%d/%Y', attrs={'type': 'date', 'class': 'fuck'})
+        }

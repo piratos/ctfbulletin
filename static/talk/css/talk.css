@@ -52,3 +52,7 @@ border-radius: 5px 5px 0 0;
      font: monospace, monospace;
      font-size: 12pt;
  }
+ #id_content{
+    width: 960px;
+    height: 64px;
+}

@@ -2,9 +2,28 @@ from django.shortcuts import render, HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from challenges.forms import *
+from ctf.models import Team
 import Image
 import os
 from django.conf import settings
+
+
+def get_challenger(request):
+    try:
+        user = request.user
+        try:
+            challenger = Challenger.objects.get(user=user)
+        except Challenger.DoesNotExist:
+            challenger = None
+            return {'challenger': challenger, 'testing': 'success'}
+    except Exception:
+        user = None
+        return {'testing': 'fail'}
+    try:
+        challenger = Challenger.objects.get(user=user)
+    except Challenger.DoesNotExist:
+        challenger = None
+    return {'challenger': challenger, 'testing': 'success'}
 
 
 def register(request):                                              # TODO if profile non validated delete user
@@ -89,7 +108,7 @@ def get_challenge(request, ch_id):
     except Challenge.DoesNotExist:
         raise Http404
     challenger = Challenger.objects.get(user=request.user)
-    # solved = challenger.did_solved(challenge)
+    solved = challenger.did_solved(challenge)
     return render(request, 'challenges/challenge.html', {'challenge': challenge,
                                                          'solved': solved})
 
@@ -105,9 +124,13 @@ def check_flag(request):
                 return HttpResponse('fail')
             if challenge.flag == flag:
                 challenger = Challenger.objects.get(user=request.user)
-                challenger.score += challenge.score
-                # challenger.add_solved(challenge)
-                return HttpResponse('success')
+                if challenger.did_solved(challenge):     # even he finds somewhere to send flag again
+                    return HttpResponse('0')             # send 0 as score
+                else:
+                    challenger.score += challenge.score
+                    challenger.solved.append(challenge.id)
+                    challenger.save()
+                    return HttpResponse(str(challenger.score))
     return HttpResponse('fail')
 
 
@@ -117,3 +140,25 @@ def get_writeup(request, chid):
         challenge = Challenge.objects.get(id=chid)
     except Challenge.DoesNotExist:
         raise Http404
+
+
+@login_required()
+def profile(request):
+    pics = {
+        'A': '/static/challenges/img/app.png',
+        'Me': '/static/challenges/img/men.png',
+        'Ma': '/static/challenges/img/mas.png',
+        'G': '/static/challenges/img/gur.png',
+    }
+    challenger = Challenger.objects.get(user=request.user)
+    bagde = str(challenger.badge)
+    pic = pics[bagde]
+    keys = []
+    try:
+        team = Team.objects.get(user_admin=challenger)
+        keys = team.get_keys()
+    except Team.DoesNotExist:
+        team = False
+    return render(request, 'challenges/profile.html', {'pic_url': pic,
+                                                       'keys': keys,
+                                                       'team': team})

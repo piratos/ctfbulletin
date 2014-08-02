@@ -105,3 +105,9 @@ def join_team(request):
                                                      'name': name})
         except Team.DoesNotExist:
             return render(request, 'ctf/team.html', {'exist': exist, 'name': name})  # team does not exist
+
+
+def scoreboard(request):
+    teams = Team.objects.all().order_by('-score')
+    teams = list(teams)
+    return render(request, 'ctf/scoreboard.html', {'teams': teams})

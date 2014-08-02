@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 {% extends 'base.html' %}
-
 <head>
     <title>Registration</title>
+{% block linking %}
+{% endblock %}
 </head>
 <body>
 {% block body %}
@@ -19,6 +20,15 @@
   <form action="/challenges/register/" id="register_form" enctype="multipart/form-data" method="post">
   {% csrf_token %}
     {{ user_form.as_ul }}
+      <!--{% for field in challenger_form.hidden_fields %}
+          {{ field }}
+      {% endfor %}
+            <ul>
+      {% for field in challenger_form.visible_fields %}
+          <label>{{ field.help_text }}</label>
+          <li>{{ field }}</li>
+      {% endfor %}
+            </ul>-->
     {{ challenger_form.as_ul }}
   <input type="submit" class="btn btn-success" value="Register">
   </form>

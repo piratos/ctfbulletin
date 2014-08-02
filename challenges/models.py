@@ -1,16 +1,44 @@
 from django.db import models
+from django_countries.fields import CountryField
 from django.contrib.auth.models import User
 from time import time
 import os
+import ast
 # Create your models here.
 
 choices = (
     ('A', 'Apprentice'),
-    ('C', 'Craftsman'),
     ('Me', 'Mentor'),
     ('Ma', 'Master'),
     ('G', 'Guru'),
 )
+
+
+class ListField(models.TextField):
+    __metaclass__ = models.SubfieldBase
+    description = "Stores a python list"
+
+    def __init__(self, *args, **kwargs):
+        super(ListField, self).__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        if not value:
+            value = []
+
+        if isinstance(value, list):
+            return value
+
+        return ast.literal_eval(value)
+
+    def get_prep_value(self, value):
+        if value is None:
+            return value
+
+        return unicode(value)
+
+    def value_to_string(self, obj):
+        value = self._get_val_from_obj(obj)
+        return self.get_db_prep_value(value)
 
 
 def upload_renamed(path):
@@ -28,21 +56,15 @@ class Challenger(models.Model):
     member = models.CharField(max_length=128, blank=True, null=True)
     picture = models.ImageField(upload_to=upload_renamed('profile_pics'), blank=True)
     born = models.DateField(blank=True)
+    country = CountryField()
     cv = models.FileField(upload_to=upload_renamed('cvs'), blank=True)
     website = models.URLField(blank=True, null=True)
-    solved = models.CommaSeparatedIntegerField(max_length=128, null=True, blank=True)
+    solved = ListField(blank=True, null=True)
 
-    def get_solved_id(self):
-        list_ids = [int(i) for i in str(self.solved).split(',')]
-        return list_ids
-
-    def add_solved(self, challenge1):
-        id1 = str(challenge1.id)
-        self.solved += ','+id1
-
-    def did_solved(self, chal):
-        if chal.id in self.get_solved_id():
-            return True
+    def did_solved(self, ch):
+        for i in self.solved:
+            if i == ch.id:
+                return True
         return False
 
     def __unicode__(self):

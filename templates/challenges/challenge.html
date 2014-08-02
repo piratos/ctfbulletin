@@ -9,10 +9,12 @@
 </head>
 <body>
 {% block body %}
-    <h2>{{ challenge.name }} : </h2>
-    <h3>score : {{ challenge.score }}</h3>
-    <h3>hints : {{ challenge.hints }}</h3>
-    <a href="{{ challenge.url }}"><button class="btn btn-warning">Start !</button></a>
+    <h3 class="label-info">{{ challenge.name }} </h3>
+    <ul style="list-style-type: None;">
+    <li><h4>score : <span class="label label-success">{{ challenge.score }}</span><span style="font-size: 15px">pts</span></h4></li>
+    <li><h4>hints : {{ challenge.hints }}</h4></li>
+    <li><a href="{{ challenge.url }}"><button class="btn btn-warning">Start !</button></a></li>
+    </ul>
     <hr>
     <div style="height: 5px" id="result"></div>
     <hr>

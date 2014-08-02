@@ -5,9 +5,9 @@
         <li><a href="/talk/index/">forum</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/ctf/">CTF</a></li>
-        <li><a href="#">scoreboard</a></li>
+        <li><a href="/ctf/scoreboard/">scoreboard</a></li>
         {% if user.is_authenticated %}
-            <li><a href="#">Profile</a></li>
+            <li><a href="/challenges/profile/">Profile</a></li>
             <li><a href="/challenges/logout/">logout</a></li>
         {% else %}
             <li><a href="/challenges/login/">Login/register</a></li>
@@ -15,4 +15,3 @@
     </ul>
 {% endblock %}
 </body>
-</html>

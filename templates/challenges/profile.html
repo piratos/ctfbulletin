@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{%  load static %}
+<head>
+    <title>{{ challenger.uer.username }}</title>
+    {% block linking %}
+        <link href="{% static 'challenges/css/global.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    	<div id="content" class="clearfix span9">
+		<div id="left">
+			<div id="userStats" class="clearfix">
+				<div class="pic">
+					<a href="#"><img src="{{ challenger.picture.url }}" width="80" height="80" /></a>
+				</div>
+
+				<div class="data">
+					<h1>{{ challenger.user.username }}</h1>
+					<h3><img src="{{ challenger.country.flag }}" alt="{{ challenger.country }}"> {{ challenger.country.name }}</h3>
+                    {% if challenger.website %}
+					<h4><a href="{{ challenger.website }}">{{ challenger.website }}</a></h4>
+                    {% endif %}
+					<div class="socialMediaLinks">
+<!-- <a href="http://twitter.com/jakerocheleau" rel="me" target="_blank"><img src="{% static 'challenges/img/twitter.png' %}" alt="@jakerocheleau" /></a>-->
+					</div>
+					<div class="sep"></div>
+					<ul class="numbers clearfix">
+						<li>score<strong>{{ challenger.score }}</strong></li>
+						<li>badge<strong>{{ challenger.badge }}</strong></li>
+                        <li>Team<br>{% if team %}{{ team.name }}{% else %}No team{% endif %}</li>
+					</ul>
+				</div>
+			</div>
+
+			<p><!-- something to write --></p>
+		</div>
+        <div id="right" >
+			<div class="gcontent" style="width: 560px">
+				<div class="head"><h1>{% if team %}keys for {{ team.name }}{% else %}No team{% endif %} </h1></div>
+				<div id="keys" class="boxy">
+                    {% if team %}
+                        <ol>
+                           {% for key in keys %}
+                            <li class="label">key : {{ key }}</li>
+                               <hr>
+                           {% endfor %}
+                        </ol>
+                    {% else %}
+                        <p>You are not admin in any team don't be afraid it is not that bad !</p>
+                    {% endif %}
+				</div>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

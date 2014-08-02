@@ -6,6 +6,7 @@
     <title>{% block title %}{{ blog.title }}{% endblock %}</title>
     {% block linking %}
         <link href="{% static 'blog/css/blog.css' %}" rel="stylesheet" >
+        <link href="{% static 'talk/css/talk.css' %}" rel="stylesheet" >
     {% endblock %}
 </head>
 <body>
@@ -26,7 +27,7 @@
     <div id="comment">
                 {% for message in messages %}
                   <div id="reply">
-                    <div class="profile_pic"><img src="media/profile_pics/{{ message.commenter.picture.url }}"></div>
+                    <div class="profile_pic"><img src="{{ message.commenter.picture.url }}"></div>
                     <div class="reply">
                         <div id="reply_content">
                         <li style="color: darkblue"><strong>{{ message.commenter }} :</strong></li>

@@ -20,7 +20,7 @@
             <ul c style="list-style-type: None">
                 {% for message in messages %}  <!-- TODO add messages deletion -->
                   <div id="reply">
-                    <div class="profile_pic"><img src="{{ message.sender.picture.url }}"></div>
+                    <div class="profile_pic"><img src="{{ message.sender.picture.url }}" style="width:80px;height:80px;"></div>
                     <div class="reply">
                         <div id="reply_content">
                         <li style="color: darkblue"><strong>{{ message.sender.user.username }} :</strong></li>
@@ -37,8 +37,8 @@
             <div id="add_message">
                 <form action="" method="post">
                     {% csrf_token %}
-                    <span class="input-medium text-center">{{ message_form.as_p }}</span>
-                    <input class="btn btn-success text-center" type="submit" value="reply">
+                    <div class="input-medium text-center">{{ message_form.as_p }}</div>
+                    <input class="btn btn-success btn-block" type="submit" value="add your reply">
                 </form>
             </div>
 {% endblock %}
