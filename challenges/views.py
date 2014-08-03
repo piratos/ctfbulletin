@@ -15,15 +15,15 @@ def get_challenger(request):
             challenger = Challenger.objects.get(user=user)
         except Challenger.DoesNotExist:
             challenger = None
-            return {'challenger': challenger, 'testing': 'success'}
+            return {'challenger': challenger, 'testing': 'success', 'ctf': True}
     except Exception:
         user = None
-        return {'testing': 'fail'}
+        return {'testing': 'fail', 'ctf': True}
     try:
         challenger = Challenger.objects.get(user=user)
     except Challenger.DoesNotExist:
         challenger = None
-    return {'challenger': challenger, 'testing': 'success'}
+    return {'challenger': challenger, 'testing': 'success', 'ctf': True}
 
 
 def register(request):                                              # TODO if profile non validated delete user
@@ -140,6 +140,17 @@ def get_writeup(request, chid):
         challenge = Challenge.objects.get(id=chid)
     except Challenge.DoesNotExist:
         raise Http404
+    writeups = WriteUp.objects.all().filter(challenge=challenge)
+    return render(request, 'challenges/writeups.html', {'challenge': challenge,
+                                                        'writeups': writeups})
+
+@login_required()
+def full_writeup(request, wid):
+    try:
+        writeup = WriteUp.objects.get(id=wid)
+    except WriteUp.DoesNotExist:
+        raise Http404
+    return render(request, 'challenges/fullwriteup.html', {'writeup': writeup})
 
 
 @login_required()

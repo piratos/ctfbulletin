@@ -19,22 +19,19 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-        </button>
-        <a class="brand" href="/challenges/">ctfBulletin</a>
-        <div class="nav-collapse collapse">
-    <ul class="nav pull-right">
 
-            {% if user.is_authenticated %}
-                <li class="navbar-link"><a href="/challenges/profile/">{{ user.username }}</a></li> <!-- link to the profile -->
-                <li class="navbar-link"><a id="score">score: {{ challenger.score }}</a></li>
+        <a class="navbar-brand" href="/challenges/">ctfBulletin</a>
+                <ul class="right" style="float: right">{% if user.is_authenticated %}
+                <li class=""><a href="/challenges/profile/">{{ user.username }}</a></li>
+                <li class=""><a id="score" style="text-decoration: none">score: {{ challenger.score }}</a></li>
                 {%  block navbar %}{% endblock %}
             {% else %}
                 <li class="navbar-link"><a href="#">anonymous</a></li>
-            {% endif %}
+            {% endif %}</ul>
+        <div class="nav-collapse">
+    <ul class="pull-right nav">
+
+
     </ul>
     <ul class="nav" >
     </ul>

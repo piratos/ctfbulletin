@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+{% load challenges_filters %}
+<head>
+    <title>{% block title %}{{ challenge.name }} writeups{% endblock %}</title>
+    {% block linking %}
+    <link href="{% static 'challenges/css/writeup.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <h1>write up lists :</h1>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+    <!-- Carousel items : writeups -->
+        <div class="carousel-inner">
+            <div class="active item">
+                <div class="carousel-caption">
+                    <h3>{{ challenge.name }}</h3>
+                    <p>this is a list of the challenges write-ups</p>
+                </div>
+            </div>
+            {% for writeup in writeups %}
+                {% if writeup.aproved %}
+                    <div class="item">
+                <div class="carousel-caption">
+                    <h3>author : {{ writeup.author }}</h3>
+                    <p>{{ writeup.content|truncatechars:200 }}{% if writeup.content|larger:200 %}
+                        <a href="/challenges/writeups/{{ challenge.id }}/{{ writeup.id }}/"> see more</a>{% endif %}</p>
+                </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev"></a>
+        <span class="glyphicon glyphicon-chevron-left left"></span>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next"></a>
+        <span class="glyphicon glyphicon-chevron-right right" style="float: right"></span>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

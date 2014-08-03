@@ -27,7 +27,7 @@
     <div id="comment">
                 {% for message in messages %}
                   <div id="reply">
-                    <div class="profile_pic"><img src="{{ message.commenter.picture.url }}"></div>
+                    <div ><img class="profile_pic" src="{{ message.commenter.picture.url }}"></div>
                     <div class="reply">
                         <div id="reply_content">
                         <li style="color: darkblue"><strong>{{ message.commenter }} :</strong></li>

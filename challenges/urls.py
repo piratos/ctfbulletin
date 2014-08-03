@@ -9,4 +9,6 @@ urlpatterns = patterns('challenges.views',
                        url(r'get/(?P<ch_id>\d+)', 'get_challenge'),
                        url(r'check/', 'check_flag'),
                        url(r'profile/', 'profile'),
+                       url(r'^writeups/(?P<chid>\d+)/$', 'get_writeup'),
+                       url(r'^writeups/\d+/(?P<wid>\d+)/$', 'full_writeup'),
                        )

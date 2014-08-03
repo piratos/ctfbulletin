@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 {% extends 'base.html' %}
+{% load static %}
 <head>
     <title>{% block title %}Challenges{% endblock %}</title>
     {% block linking %}
@@ -8,16 +9,22 @@
 </head>
 <body>
 {% block body %}
-     {% if list %}
-        {% for ch in list %}
-            <p><strong>{{ ch.category.name }}</strong></p>
-            {% for challenge in ch.challenges %}
-                <a href="/challenges/get/{{ challenge.id }}/"><p>{{ challenge.name }}</p></a>
-            {% endfor %}
+ <div class="container container-fluid span12">
+    {% for ch in list %}
+        <div class="col-md-2 column">
+        <div style="border: 3px solid {{ ch.category.color }};border-radius: 8px;">
+        <strong>{{ ch.category.name }}</strong><br>
+        {% for challenge in ch.challenges %}
+            <ul>
+        <li><a href="/challenges/get/{{ challenge.id }}/">{{ challenge.name }}</a></li>
+            </ul>
         {% endfor %}
-    {% else %}
-        <h1> no challenges for now, get back soon !</h1>
-    {% endif %}
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
 {% endblock %}
 </body>
 </html>

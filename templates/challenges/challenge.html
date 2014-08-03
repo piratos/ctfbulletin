@@ -20,7 +20,7 @@
     <hr>
     {% if solved %}
         <p class="alert alert-info"> you did already solved the challenge !<br>
-        you can <a href="#">submit</a> your write-up or look for <a href="#">write-ups</a> made by challengers</p>
+        you can <a href="/challenges/writeups/{{ challenge.id }}/">submit</a> your write-up or look for <a href="/challenges/writeups/{{ challenge.id }}/">write-ups</a> made by challengers</p>
 
     <hr>
     {% else %}

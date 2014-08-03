@@ -16,6 +16,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'challenges.views.get_challenger',
 )
 
 
@@ -64,7 +65,6 @@ ROOT_URLCONF = 'ctfbulletin.urls'
 
 WSGI_APPLICATION = 'ctfbulletin.wsgi.application'
 
-TEMPLATE_CONTEXT_PROCESSORS += TEMPLATE_CONTEXT_PROCESSORS + ('challenges.views.get_challenger',)
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 

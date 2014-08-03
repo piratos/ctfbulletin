@@ -1,5 +1,5 @@
 from django.db import models
-from challenges.models import Challenger
+from challenges.models import Challenger, CategoryChallenge, Challenge
 from uuid import uuid4  # for generating unique id's
 
 
@@ -32,3 +32,8 @@ class Team(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class CtfChallenge(Challenge):
+    def __unicode__(self):
+        return 'ctf: '+self.name

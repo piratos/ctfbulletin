@@ -23,3 +23,11 @@
 .column div {
     padding:3px;
 }
+ .profile_pic {
+     float: left;
+     height: 80px;
+     width: 80px;
+     background-color: black;
+     border: 7px solid white;
+     border-radius: 10px;
+ }

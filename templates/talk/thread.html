@@ -20,7 +20,7 @@
             <ul c style="list-style-type: None">
                 {% for message in messages %}  <!-- TODO add messages deletion -->
                   <div id="reply">
-                    <div class="profile_pic"><img src="{{ message.sender.picture.url }}" style="width:80px;height:80px;"></div>
+                    <div ><img class="profile_pic" src="{{ message.sender.picture.url }}"></div>
                     <div class="reply">
                         <div id="reply_content">
                         <li style="color: darkblue"><strong>{{ message.sender.user.username }} :</strong></li>

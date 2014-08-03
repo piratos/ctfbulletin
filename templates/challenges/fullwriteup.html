@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <title>{% block title %}write up{% endblock %}</title>
+    {% block linking %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% if  writeup.aproved %}
+    <h2 class="text-success">write up by {{ writeup.author }}</h2>
+    <p>{{ writeup.content }}</p>
+    {% else %}
+        <h2 class="alert alert-error">the write up you look for is not approved by the admin yet!</h2>
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+</body>
+</html>
