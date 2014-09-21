@@ -32,4 +32,4 @@ the only contributer in this project as far is me, sayf eddine hammami a compute
 
 License
 
-the project is distributed under the Apache license, look at the license file
+the project is distributed under the MIT license, look at the license file
